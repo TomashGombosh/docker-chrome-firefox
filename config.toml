@@ -1,0 +1,3 @@
+[node]
+ovveride-max-sessions = true
+max-sessions = 2
