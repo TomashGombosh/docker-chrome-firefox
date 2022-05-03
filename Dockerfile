@@ -11,7 +11,7 @@ ENV SESSION=2
 COPY ./scripts/ scripts/
 COPY ./entrypoint.sh entrypoint.sh 
 COPY ./config.toml config.toml 
-RUN chmod +x scripts/
+RUN chmod -R +x ./scripts
 RUN chmod +x entrypoint.sh 
 RUN ./scripts/install_dependencies.sh
 RUN ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION
