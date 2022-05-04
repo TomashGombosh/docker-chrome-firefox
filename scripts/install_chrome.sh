@@ -1,11 +1,10 @@
 #!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
+
 CHROME_DRIVER_VERSION=$1
 
-rm -rf /var/lib/apt/lists/*
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
-echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-dpkg -i google-chrome-stable_current_amd64.deb
+apt-get install -y ./google-chrome-stable_current_amd64.deb
 echo "Chrome install successfully"
 
 wget https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip
