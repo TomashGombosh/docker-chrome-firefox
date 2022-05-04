@@ -1,9 +1,11 @@
 #!/bin/bash
 CHROME_DRIVER_VERSION=$1
 
+rm -rf /var/lib/apt/lists/*
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
+echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 dpkg -i google-chrome-stable_current_amd64.deb
-
 echo "Chrome install successfully"
 
 wget https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip
@@ -11,5 +13,9 @@ unzip chromedriver_linux64.zip
 mv chromedriver /usr/bin/chromedriver
 chown root:root /usr/bin/chromedriver
 chmod +x /usr/bin/chromedriver
-
 echo "Chromedriver install successfully"
+
+rm -r google-chrome-stable_current_amd64.deb
+rm -r chromedriver_linux64.zip
+rm -rf /var/lib/apt/lists/*
+echo "Clean up"
