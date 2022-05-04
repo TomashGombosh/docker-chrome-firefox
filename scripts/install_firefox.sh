@@ -6,7 +6,6 @@ GECKO_DRIVER_VERSION=$1
 apt-get update
 apt-get install -y firefox
 echo "Firefox install successfully"
-echo $(firefox --version)
 
 wget https://github.com/mozilla/geckodriver/releases/download/v${GECKO_DRIVER_VERSION}/geckodriver-v${GECKO_DRIVER_VERSION}-linux64.tar.gz
 tar -xvf geckodriver-v${GECKO_DRIVER_VERSION}-linux64.tar.gz
