@@ -16,5 +16,4 @@ echo "Chromedriver install successfully"
 
 rm -r google-chrome-stable_current_amd64.deb
 rm -r chromedriver_linux64.zip
-rm -rf /var/lib/apt/lists/*
 echo "Clean up"
