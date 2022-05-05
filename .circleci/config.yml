@@ -2,7 +2,10 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      IMAGE_NAME: tomashgombosh/selenium-grid-node-chrome-firefox
+      LATEST: tomashgombosh/chrome-firefox:latest
+      GRID: tomashgombosh/chrome-firefox:grid-latest
+      JRE_11: tomashgombosh/chrome-firefox:jre-11
+      NODE_16: tomashgombosh/chrome-firefox:node-16
     docker:
       - image: circleci/buildpack-deps:stretch
 
@@ -12,17 +15,31 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - run: 
+          name: "Prepare build files"
+          command: | 
+            ./build.sh jre-18
+            ./build.sh jre-18-grid     
+            ./build.sh jre-11      
+            ./build.sh node-16                 
       - run:
           name: Build Docker image
           command: |
-            docker build -t $IMAGE_NAME:latest .
+            cd jre-18 && docker build -t $LATEST . && cd ..
+            cd jre-11 && docker build -t $JRE_11 . && cd ..          
+            cd jre-18-grid && docker build -t $GRID . && cd ..                
       - run:
           name: Archive Docker image
-          command: docker save -o image.tar $IMAGE_NAME
+          command: |
+            docker save -o latest.tar $LATEST
+            docker save -o grid.tar $GRID
+            docker save -o java_11.tar $JRE_11
       - persist_to_workspace:
           root: .
           paths:
-            - ./image.tar
+            - ./latest.tar 
+            - ./grid.tar 
+            - ./java_11.tar                         
   publish-latest:
     executor: docker-publisher
     steps:
@@ -31,17 +48,22 @@ jobs:
       - setup_remote_docker
       - run:
           name: Load archived Docker image
-          command: docker load -i /tmp/workspace/image.tar
+          command: | 
+            docker load -i /tmp/workspace/latest.tar
+            docker load -i /tmp/workspace/grid.tar
+            docker load -i /tmp/workspace/java_11.tar                        
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $IMAGE_NAME:latest
+            docker push $LATEST
+            docker push $GRID
+            docker push $JRE_11
 
 workflows:
   version: 2.1
   build-develop:
-    jobs:
+    jobs:     
       - build:
           filters:
             branches:
