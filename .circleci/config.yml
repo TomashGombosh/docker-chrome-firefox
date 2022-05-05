@@ -18,16 +18,16 @@ jobs:
       - run: 
           name: "Prepare build files"
           command: | 
-            ./build.sh jre-18
-            ./build.sh jre-18-grid     
+            ./build.sh jre-17
+            ./build.sh jre-17-grid     
             ./build.sh jre-11      
             ./build.sh node-16                 
       - run:
           name: Build Docker image
           command: |
-            cd jre-18 && docker build -t $LATEST . && cd ..
+            cd jre-17 && docker build -t $LATEST . && cd ..
             cd jre-11 && docker build -t $JRE_11 . && cd ..          
-            cd jre-18-grid && docker build -t $GRID . && cd ..                
+            cd jre-17-grid && docker build -t $GRID . && cd ..                
       - run:
           name: Archive Docker image
           command: |
