@@ -1,7 +1,7 @@
 FROM ubuntu:impish
 
 ARG CHROMEDRIVER_VERSION="101.0.4951.41"
-ARG GECKODRIVER_VERSION="0.30.0"
+ARG GECKODRIVER_VERSION="0.31.0"
 
 COPY ./scripts/ scripts/
 RUN chmod -R +x ./scripts
