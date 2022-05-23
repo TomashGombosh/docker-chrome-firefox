@@ -1,8 +1,10 @@
-# Chrome and Firefox browser in the Ubutu focal docker images
+# Chrome and Firefox browser in the Ubuntu focal docker images
 
-Docker images for the Java and Javascript UI automated. 
+Available on [Docker Hub](hhttps://hub.docker.com/r/tomash-gombosh/chrome-firefox/).
 
-Also, images can not us for scale the selenium grid using AWS fargate
+Docker images for UI automation tests with the Java and Javascript languages.
+
+Also, images can not scale the selenium grid using AWS Fargate
 
 Includes: 
 - **Unbutu** Focal (Implish incomming)
@@ -10,21 +12,15 @@ Includes:
 - **Node** 16 
 - **Selenium Grid** 4.1.4 (latest)
 
-Available on [Docker Hub](hhttps://hub.docker.com/r/tomash-gombosh/chrome-firefox/).
-
 The following Docker tags are available:
 
-* `jre-11` [(jre-11/Dockerfile)](jre-11/Dockerfile)
-* `latest` [(jre-17/Dockerfile)](jre-17/Dockerfile)
-* `grid` [(jre-17-grid/Dockerfile)](jre-17-grid/Dockerfile)
-* `node` [(node-16/Dockerfile)](node-16/Dockerfile)
+* `jre-11` [(jre-11/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/jre-11/Dockerfile)
+* `latest` [(jre-17/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/jre-17/Dockerfile)
+* `grid` [(jre-17-grid/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/jre-17-grid/Dockerfile)
+* `node` [(node-16/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/node-16/Dockerfile)
 
 
 ## Tips
-
-### Using with Selenium
-
-Configure [Selenium](https://www.selenium.dev/) to launch Chrome in headless mode:
 
 #### Chrome
 ```java
@@ -48,11 +44,11 @@ WebDriver driver = new FirefoxDriver(options);
 
 Where: 
 - HUB_URL is location of the selenium grid [hub](https://www.selenium.dev/documentation/grid/components/)
-- TIMOUT of the container, can be empty. If empty container never stops
+- TIMEOUT of the container, can be empty. If an empty container never stops
 
 ### Gitlab CI
 
-Can be used for the `.gitlab-ci.yml` to run test on the gitlab shared runner. 
+It can be used for the `.gitlab-ci.yml` to run a test on the GitLab shared runner. 
 **NOTE**: No include maven in the container use a [maven wrapper](https://maven.apache.org/wrapper/)
 
 ```yml
