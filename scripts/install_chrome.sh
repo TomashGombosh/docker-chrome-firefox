@@ -9,7 +9,7 @@ echo "Chrome install successfully"
 
 wget https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip
 unzip chromedriver_linux64.zip
-mv chromedriver /usr/bin/chromedriver
+mv chromedriver /usr/bin/
 chown root:root /usr/bin/chromedriver
 chmod +x /usr/bin/chromedriver
 echo "Chromedriver install successfully"
