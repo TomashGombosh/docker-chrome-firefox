@@ -10,7 +10,7 @@ executors:
       - image: circleci/buildpack-deps:stretch
 
 jobs:
-  build:
+  latest:
     executor: docker-publisher
     steps:
       - checkout
@@ -18,53 +18,89 @@ jobs:
       - run: 
           name: "Prepare build files"
           command: | 
-            ./build.sh jre-17   
-            ./build.sh jre-11      
-            ./build.sh node-16                 
+            ./build.sh jre-17                
       - run:
           name: Build Docker image
           command: |
-            cd jre-17 && docker build -t $LATEST . && cd ..
-            cd jre-11 && docker build -t $JRE_11 . && cd ..                        
+            cd jre-17 && docker build -t $LATEST . && cd ..                      
       - run:
-          name: Archive Docker image
-          command: |
-            docker save -o latest.tar $LATEST
-            docker save -o java_11.tar $JRE_11
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./latest.tar 
-            - ./java_11.tar                         
-  publish-latest:
-    executor: docker-publisher
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - setup_remote_docker
-      - run:
-          name: Load archived Docker image
-          command: | 
-            docker load -i /tmp/workspace/latest.tar
-            docker load -i /tmp/workspace/java_11.tar                        
-      - run:
-          name: Publish Docker Image to Docker Hub
+          name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $LATEST
+            docker push $LATEST                
+  jre-11:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: 
+          name: "Prepare build files"
+          command: | 
+            ./build.sh jre-11              
+      - run:
+          name: Build Docker image
+          command: |
+            cd jre-11 && docker build -t $JRE_11 . && cd ..                      
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $JRE_11
+
+  grid:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: 
+          name: "Prepare build files"
+          command: | 
+            ./build.sh jre-17-grid             
+      - run:
+          name: Build Docker image
+          command: |
+            cd jre-17-grid && docker build -t $GRID . && cd ..                      
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $GRID
+  node:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: 
+          name: "Prepare build files"
+          command: | 
+            ./build.sh node-16           
+      - run:
+          name: Build Docker image
+          command: |
+            cd node-16 && docker build -t $NODE_16 . && cd ..                      
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $NODE_16            
 
 workflows:
   version: 2.1
-  build-develop:
+  build:
     jobs:     
-      - build:
+      - latest:
           filters:
             branches:
               only: develop
-      - publish-latest:
-          requires:
-            - build
+      - jre-11:
           filters:
             branches:
-              only: develop              
+              only: develop     
+      - grid:
+          filters:
+            branches:
+              only: develop    
+      - node:
+          filters:
+            branches:
+              only: develop                               
