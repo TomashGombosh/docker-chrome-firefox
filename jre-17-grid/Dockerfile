@@ -6,11 +6,10 @@ ARG GECKODRIVER_VERSION="0.31.0"
 
 ENV HUB_URL="http://localhost:4444"
 ENV SELENIUM_VERSION=${SELENIUM_GRID_VERSION}
-ENV SESSION=2
+ENV TIMEOUT=${TIMEOUT}
 
 COPY ./scripts/ scripts/
 COPY ./entrypoint.sh entrypoint.sh 
-COPY ./config.toml config.toml 
 RUN chmod -R +x ./scripts
 RUN chmod +x entrypoint.sh 
 RUN ./scripts/install_dependencies.sh
