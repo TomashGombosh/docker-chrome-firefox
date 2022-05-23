@@ -10,7 +10,6 @@ ENV SESSION=2
 
 COPY ./scripts/ scripts/
 COPY ./entrypoint.sh entrypoint.sh 
-COPY ./config.toml config.toml 
 RUN chmod -R +x ./scripts
 RUN chmod +x entrypoint.sh 
 RUN ./scripts/install_dependencies.sh
