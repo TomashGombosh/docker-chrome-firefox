@@ -21,6 +21,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Run ShellCheck
+        uses: azohra/shell-linter@latest
+        with:
+          path: "scripts/*.sh, jre-17-grid/*.sh, jre-17-grid/scripts/*.sh, jre-18-grid/scripts/*.sh, node-16/scripts/*.sh"
+          severity: "error"
+
       - name: Run hadolint JRE 11
         uses: hadolint/hadolint-action@f988afea3da57ee48710a9795b6bb677cc901183
         with:
@@ -35,6 +41,22 @@ jobs:
           dockerfile: ./jre-17/Dockerfile
           format: sarif
           output-file: hadolint-jre-17.sarif
+          no-fail: true
+
+      - name: Run hadolint JRE 18
+        uses: hadolint/hadolint-action@f988afea3da57ee48710a9795b6bb677cc901183
+        with:
+          dockerfile: ./jre-18/Dockerfile
+          format: sarif
+          output-file: hadolint-jre-18.sarif
+          no-fail: true
+
+      - name: Run hadolint JRE 18 GRID
+        uses: hadolint/hadolint-action@f988afea3da57ee48710a9795b6bb677cc901183
+        with:
+          dockerfile: ./jre-18-grid/Dockerfile
+          format: sarif
+          output-file: hadolint-jre-grid-18.sarif
           no-fail: true
 
       - name: Run hadolint GRID
@@ -52,12 +74,6 @@ jobs:
           format: sarif
           output-file: hadolint-node-16.sarif
           no-fail: true
-
-      - name: Run ShellCheck
-        uses: azohra/shell-linter@latest
-        with:
-          path: "scripts/*.sh, jre-17-grid/*.sh, jre-17-grid/scripts/*.sh, node-16/scripts/*.sh"
-          severity: "error"
 
       - name: Upload analysis JRE-11
         uses: github/codeql-action/upload-sarif@v2
@@ -85,4 +101,18 @@ jobs:
         with:
           category: node-16
           sarif_file: hadolint-node-16.sarif
+          wait-for-processing: true
+
+      - name: Upload analysis JRE-18
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          category: jre-18
+          sarif_file: hadolint-jre-18.sarif
+          wait-for-processing: true
+
+      - name: Upload analysis JRE-18 Grid
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          category: jre-18-grid
+          sarif_file: hadolint-jre-grid-18.sarif
           wait-for-processing: true
