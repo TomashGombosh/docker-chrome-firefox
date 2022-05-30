@@ -58,12 +58,8 @@ jobs:
         with:
           sarif_file: hadolint-jre-11.sarif
           wait-for-processing: true
-
-      - name: Upload analysis JRE-17
-        uses: github/codeql-action/upload-sarif@v2
-        with:
           sarif_file: hadolint-jre-17.sarif
-          wait-for-processing: true          
+          wait-for-processing: true         
 
       - name: Upload analysis GRID
         uses: github/codeql-action/upload-sarif@v2
