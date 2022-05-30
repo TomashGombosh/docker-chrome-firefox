@@ -53,7 +53,7 @@ jobs:
           output-file: hadolint.sarif
           no-fail: true
 
-      - name: Upload analysis JRE-11
+      - name: Upload analysis to the GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: hadolint.sarif
