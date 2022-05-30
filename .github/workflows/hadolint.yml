@@ -2,9 +2,9 @@ name: Hadolint
 
 on:
   push:
-    branches: [ develop ]
+    branches: [develop]
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
 
 permissions:
   contents: read
@@ -26,7 +26,7 @@ jobs:
         with:
           dockerfile: ./jre-11/Dockerfile
           format: sarif
-          output-file: hadolint.sarif
+          output-file: hadolint-jre-11.sarif
           no-fail: true
 
       - name: Run hadolint JRE 17
@@ -34,7 +34,7 @@ jobs:
         with:
           dockerfile: ./jre-17/Dockerfile
           format: sarif
-          output-file: hadolint.sarif
+          output-file: hadolint-jre-17.sarif
           no-fail: true
 
       - name: Run hadolint GRID
@@ -42,7 +42,7 @@ jobs:
         with:
           dockerfile: ./jre-17-grid/Dockerfile
           format: sarif
-          output-file: hadolint.sarif
+          output-file: hadolint-grid.sarif
           no-fail: true
 
       - name: Run hadolint Node 16
@@ -50,11 +50,12 @@ jobs:
         with:
           dockerfile: ./node-16/Dockerfile
           format: sarif
-          output-file: hadolint.sarif
+          output-file: hadolint-node-16.sarif
           no-fail: true
 
       - name: Upload analysis to the GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: hadolint.sarif
-          wait-for-processing: true      
+          category: jre-11
+          sarif_file: hadolint-jre-11.sarif
+          wait-for-processing: true

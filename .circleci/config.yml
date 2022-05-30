@@ -15,32 +15,32 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: 
+      - run:
           name: "Prepare build files"
-          command: | 
-            ./build.sh jre-17                
+          command: |
+            ./build.sh jre-17
       - run:
           name: Build Docker image
           command: |
-            cd jre-17 && docker build -t $LATEST . && cd ..                      
+            cd jre-17 && docker build -t $LATEST . && cd ..
       - run:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $LATEST                
+            docker push $LATEST
   jre-11:
     executor: docker-publisher
     steps:
       - checkout
       - setup_remote_docker
-      - run: 
+      - run:
           name: "Prepare build files"
-          command: | 
-            ./build.sh jre-11              
+          command: |
+            ./build.sh jre-11
       - run:
           name: Build Docker image
           command: |
-            cd jre-11 && docker build -t $JRE_11 . && cd ..                      
+            cd jre-11 && docker build -t $JRE_11 . && cd ..
       - run:
           name: Publish Docker image
           command: |
@@ -52,14 +52,14 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: 
+      - run:
           name: "Prepare build files"
-          command: | 
-            ./build.sh jre-17-grid             
+          command: |
+            ./build.sh jre-17-grid
       - run:
           name: Build Docker image
           command: |
-            cd jre-17-grid && docker build -t $GRID . && cd ..                      
+            cd jre-17-grid && docker build -t $GRID . && cd ..
       - run:
           name: Publish Docker image
           command: |
@@ -70,24 +70,24 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: 
+      - run:
           name: "Prepare build files"
-          command: | 
-            ./build.sh node-16           
+          command: |
+            ./build.sh node-16
       - run:
           name: Build Docker image
           command: |
-            cd node-16 && docker build -t $NODE_16 . && cd ..                      
+            cd node-16 && docker build -t $NODE_16 . && cd ..
       - run:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $NODE_16            
+            docker push $NODE_16
 
 workflows:
-  version: 2.1
+  version: 2
   build:
-    jobs:     
+    jobs:
       - latest:
           filters:
             branches:
@@ -95,12 +95,12 @@ workflows:
       - jre-11:
           filters:
             branches:
-              only: develop     
+              only: develop
       - grid:
           filters:
             branches:
-              only: develop    
+              only: develop
       - node:
           filters:
             branches:
-              only: develop                               
+              only: develop
