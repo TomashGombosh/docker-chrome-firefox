@@ -26,7 +26,7 @@ jobs:
         with:
           dockerfile: ./jre-11/Dockerfile
           format: sarif
-          output-file: hadolint-jre-11.sarif
+          output-file: hadolint-jre.sarif
           no-fail: true
 
       - name: Run hadolint JRE 17
@@ -34,7 +34,7 @@ jobs:
         with:
           dockerfile: ./jre-17/Dockerfile
           format: sarif
-          output-file: hadolint-jre-17.sarif
+          output-file: hadolint-jre.sarif
           no-fail: true
 
       - name: Run hadolint GRID
@@ -56,10 +56,8 @@ jobs:
       - name: Upload analysis JRE-11
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: hadolint-jre-11.sarif
-          wait-for-processing: true
-          sarif_file: hadolint-jre-17.sarif
-          wait-for-processing: true         
+          sarif_file: hadolint-jre.sarif
+          wait-for-processing: true      
 
       - name: Upload analysis GRID
         uses: github/codeql-action/upload-sarif@v2
