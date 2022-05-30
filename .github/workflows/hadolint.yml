@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   hadolint:
-    name: Run hadolint scanning
+    name: Run scanning
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -56,7 +56,7 @@ jobs:
       - name: Run ShellCheck
         uses: azohra/shell-linter@latest
         with:
-          path: "scripts/*.sh, jre-17-grid/*.sh, node-16/*.sh"
+          path: "scripts/*.sh, jre-17-grid/*.sh, jre-17-grid/scripts/*.sh, node-16/scripts/*.sh"
           severity: "error"
 
       - name: Upload analysis JRE-11
