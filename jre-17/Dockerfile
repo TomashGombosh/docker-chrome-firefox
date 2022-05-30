@@ -9,4 +9,4 @@ RUN chmod -R +x ./scripts &&\
     ./scripts/install_dependencies.sh &&\
     ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
-    apt-get install -y openjdk-17-jre-headless
+    apt-get install -y openjdk-17-jre-headless --no-install-recommends 

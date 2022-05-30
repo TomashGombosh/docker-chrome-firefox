@@ -17,5 +17,5 @@ RUN chmod -R +x ./scripts &&\
     ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
     ./scripts/get_selenium_grid.sh $SELENIUM_GRID_VERSION &&\
-    apt-get install -y openjdk-17-jre-headless
+    apt-get install -y openjdk-17-jre-headless --no-install-recommends 
 CMD ["sh", "-c", "./entrypoint.sh"]
