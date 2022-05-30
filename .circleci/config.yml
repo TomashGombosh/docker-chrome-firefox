@@ -3,7 +3,7 @@ executors:
   docker-publisher:
     environment:
       LATEST: tomashgombosh/chrome-firefox:latest
-      GRID: tomashgombosh/chrome-firefox:grid-latest
+      GRID: tomashgombosh/chrome-firefox:grid
       JRE_11: tomashgombosh/chrome-firefox:jre-11
       NODE_16: tomashgombosh/chrome-firefox:node-16
     docker:
