@@ -53,25 +53,25 @@ jobs:
           output-file: hadolint-node-16.sarif
           no-fail: true
 
-      - name: Upload analysis results to GitHub
+      - name: Upload analysis JRE-11
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: hadolint-jre-11.sarif
           wait-for-processing: true
 
-      - name: Upload analysis results to GitHub
+      - name: Upload analysis JRE-17
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: hadolint-jre-17.sarif
           wait-for-processing: true          
 
-      - name: Upload analysis results to GitHub
+      - name: Upload analysis GRID
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: hadolint-grid.sarif
           wait-for-processing: true
 
-      - name: Upload analysis results to GitHub
+      - name: Upload analysis Node-16
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: hadolint-node-16.sarif
