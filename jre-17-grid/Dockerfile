@@ -18,4 +18,4 @@ RUN chmod -R +x ./scripts &&\
     ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
     ./scripts/get_selenium_grid.sh $SELENIUM_GRID_VERSION &&\
     apt-get install -y openjdk-17-jre-headless
-CMD ./entrypoint.sh 
+CMD ["sh", "-c", "./entrypoint.sh"]
