@@ -2,11 +2,12 @@ FROM ubuntu:focal
 
 ARG CHROMEDRIVER_VERSION="101.0.4951.41"
 ARG GECKODRIVER_VERSION="0.31.0"
+WORKDIR /usr/home/ubuntu
 
 COPY ./scripts/ scripts/
-RUN chmod -R +x ./scripts
-RUN ./scripts/install_dependencies.sh
-RUN ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION 
-RUN ./scripts/install_firefox.sh $GECKODRIVER_VERSION
-RUN ./scripts/install_nodejs.sh
+RUN chmod -R +x ./scripts &&\
+    ./scripts/install_dependencies.sh &&\
+    ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
+    ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
+    ./scripts/install_nodejs.sh
 

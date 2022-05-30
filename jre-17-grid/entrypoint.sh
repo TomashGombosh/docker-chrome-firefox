@@ -7,7 +7,7 @@ echo "TIMEOUT -> ${TIMEOUT}"
 if [[ $TIMEOUT == "" ]];
 then
     echo "Without timeout"
-    java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL} &
+    java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL}
 else
     echo "With timeout"
     java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL} &
