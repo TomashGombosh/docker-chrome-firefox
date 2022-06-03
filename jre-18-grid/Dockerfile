@@ -11,11 +11,13 @@ ENV SESSION=2
 
 COPY ./scripts/ scripts/
 COPY ./entrypoint.sh entrypoint.sh 
-RUN chmod -R +x ./scripts &&\
-    chmod +x entrypoint.sh &&\
-    ./scripts/install_dependencies.sh &&\
-    ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
-    ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
-    ./scripts/get_selenium_grid.sh $SELENIUM_GRID_VERSION &&\
+RUN apt-get update &&\
+    apt-get install dos2unix &&\
+    find ./scripts -type f -print0 | xargs -0 dos2unix &&\
+    dos2unix ./entrypoint.sh &&\
+    sh ./scripts/install_dependencies.sh &&\
+    sh ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
+    sh ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
+    sh ./scripts/get_selenium_grid.sh $SELENIUM_GRID_VERSION &&\
     apt-get install -y openjdk-18-jre-headless --no-install-recommends
 CMD ["sh", "-c", "./entrypoint.sh"]
