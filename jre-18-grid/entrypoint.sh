@@ -11,8 +11,13 @@ if [[ $TIMEOUT == "" && $NODE_IP == "" ]] ;then
 elif [[ $NODE_IP != "" ]] ;then
     echo "Without timeout and with node host from env value"
     java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL} --bind-host false --host ${NODE_IP}
+elif [[ $NODE_IP != "" ]] ;then
+    echo "With timeout and without node host from env value"
+    java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL} &
+    sleep $TIMEOUT
+    kill "$!"
 else
-    echo "With timeout and node change ip"
+    echo "With timeout"
     java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL} --bind-host false --host ${NODE_IP} &
     sleep $TIMEOUT
     kill "$!"
