@@ -8,10 +8,10 @@ echo "NODE_IP Address -> ${NODE_IP}"
 if [[ $TIMEOUT == "" && $NODE_IP == "" ]] ;then
     echo "Without timeout and with node host by default"
     java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL}
-elif [[ $NODE_IP != "" ]] ;then
+elif [[ $NODE_IP != "" && $TIMEOUT == "" ]] ;then
     echo "Without timeout and with node host from env value"
     java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL} --bind-host false --host ${NODE_IP}
-elif [[ $NODE_IP != "" ]] ;then
+elif [[ $TIMEOUT != "" && $NODE_IP == "" ]] ;then
     echo "With timeout and without node host from env value"
     java -jar selenium-server-${SELENIUM_VERSION}.jar node --hub ${HUB_URL} &
     sleep $TIMEOUT
