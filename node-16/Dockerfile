@@ -8,7 +8,6 @@ COPY ./scripts/ scripts/
 RUN apt-get update &&\
     apt-get install dos2unix &&\
     find ./scripts -type f -print0 | xargs -0 dos2unix &&\
-    dos2unix ./entrypoint.sh &&\
     sh ./scripts/install_dependencies.sh &&\
     sh ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     sh ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
