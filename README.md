@@ -67,3 +67,15 @@ test-firefox:
     - ./mvnw clean test
 
 ```
+
+### Setup
+
+#### Windows 
+To build an image in the windows run script `build.ps1 {folder}`, where the folder is the build folder. (ex. jre-11)
+After redirecting to the build folder.
+To build image run `docker build -it tomashgombosh/docker-chrome-firefox:local`
+
+#### Ubuntu/OSX
+To build an image in the ubuntu/osx run script `build.sh {folder}`, where the folder is the build folder. (ex. jre-11)
+After redirecting to the build folder.
+To build image run `docker build -it tomashgombosh/docker-chrome-firefox:local`
