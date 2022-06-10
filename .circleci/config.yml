@@ -3,6 +3,8 @@ executors:
   docker-publisher:
     environment:
       GRID_VERSION: "4.2.2"
+      CHROMEDRIVER_VERSION: "102.0.5005.61"
+      GECKODRIVER_VERSION: "0.31.0"
       LATEST: tomashgombosh/chrome-firefox:latest
       GRID: tomashgombosh/chrome-firefox:grid-latest
       JRE_11: tomashgombosh/chrome-firefox:jre-11
@@ -24,7 +26,10 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-17 && docker build -t $LATEST
+            cd jre-17 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $LATEST .
       - run:
           name: Publish Docker image
           command: |
@@ -42,7 +47,10 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-11 && docker build -t $JRE_11 .
+            cd jre-11 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $JRE_11 .
       - run:
           name: Publish Docker image
           command: |
@@ -60,7 +68,10 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-18 && docker build -t $JRE_18 .
+            cd jre-18 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $JRE_18 .
       - run:
           name: Publish Docker image
           command: |
@@ -78,7 +89,11 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-17-grid && docker build --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION -t $GRID .
+            cd jre-17-grid && docker build \
+            --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $GRID .
       - run:
           name: Publish Docker image
           command: |
@@ -96,7 +111,10 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd node-16 && docker build -t $NODE_16 . && cd ..
+            cd node-16 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $NODE_16 . 
       - run:
           name: Publish Docker image
           command: |
