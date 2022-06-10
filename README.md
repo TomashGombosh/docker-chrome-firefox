@@ -10,7 +10,7 @@ Includes:
 - **Unbutu** Focal (Implish incomming)
 - **JRE** 11/17. (18 incoming)
 - **Node** 16 
-- **Selenium Grid** 4.1.4 (latest)
+- **Selenium Grid** 4.2.2. (latest)
 
 The following Docker tags are available:
 
