@@ -18,6 +18,7 @@ The following Docker tags are available:
 * `jre-18` [(jre-18/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/jre-18/Dockerfile)
 * `latest` [(jre-17/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/jre-17/Dockerfile)
 * `grid` [(jre-17-grid/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/jre-17-grid/Dockerfile)
+* `jre-18-grid` [(jre-18-grid/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/jre-18-grid/Dockerfile)
 * `node` [(node-16/Dockerfile)](https://github.com/TomashGombosh/docker-chrome-firefox/blob/develop/node-16/Dockerfile)
 
 
