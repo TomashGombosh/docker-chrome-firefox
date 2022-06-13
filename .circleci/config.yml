@@ -2,9 +2,14 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
+      GRID_VERSION: "4.2.2"
+      CHROMEDRIVER_VERSION: "102.0.5005.61"
+      GECKODRIVER_VERSION: "0.31.0"
       LATEST: tomashgombosh/chrome-firefox:latest
-      GRID: tomashgombosh/chrome-firefox:grid-latest
+      GRID: tomashgombosh/chrome-firefox:grid
+      GRID_JRE_18: tomashgombosh/chrome-firefox:jre-18-grid
       JRE_11: tomashgombosh/chrome-firefox:jre-11
+      JRE_18: tomashgombosh/chrome-firefox:jre-18
       NODE_16: tomashgombosh/chrome-firefox:node-16
     docker:
       - image: circleci/buildpack-deps:stretch
@@ -22,7 +27,10 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-17 && docker build -t $LATEST . && cd ..
+            cd jre-17 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $LATEST .
       - run:
           name: Publish Docker image
           command: |
@@ -40,13 +48,36 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-11 && docker build -t $JRE_11 . && cd ..
+            cd jre-11 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $JRE_11 .
       - run:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $JRE_11
-
+  jre-18:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Prepare build files"
+          command: |
+            ./build.sh jre-18
+      - run:
+          name: Build Docker image
+          command: |
+            cd jre-18 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $JRE_18 .
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $JRE_18
   grid:
     executor: docker-publisher
     steps:
@@ -59,12 +90,38 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-17-grid && docker build -t $GRID . && cd ..
+            cd jre-17-grid && docker build \
+            --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $GRID .
       - run:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $GRID
+  grid-jre-18:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Prepare build files"
+          command: |
+            ./build.sh jre-18-grid
+      - run:
+          name: Build Docker image
+          command: |
+            cd jre-18-grid && docker build \
+            --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $GRID_JRE_18 .
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $GRID_JRE_18
   node:
     executor: docker-publisher
     steps:
@@ -77,7 +134,10 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd node-16 && docker build -t $NODE_16 . && cd ..
+            cd node-16 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $NODE_16 .
       - run:
           name: Publish Docker image
           command: |
