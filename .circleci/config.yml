@@ -112,7 +112,7 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd jre-17-grid && docker build \
+            cd jre-18-grid && docker build \
             --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
@@ -121,7 +121,7 @@ jobs:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $GRID_JRE_18            
+            docker push $GRID_JRE_18
   node:
     executor: docker-publisher
     steps:
@@ -137,7 +137,7 @@ jobs:
             cd node-16 && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
-            -t $NODE_16 . 
+            -t $NODE_16 .
       - run:
           name: Publish Docker image
           command: |
