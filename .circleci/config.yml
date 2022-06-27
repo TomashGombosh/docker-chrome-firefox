@@ -2,8 +2,8 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      GRID_VERSION: "4.2.2"
-      CHROMEDRIVER_VERSION: "102.0.5005.61"
+      GRID_VERSION: "4.3.0"
+      CHROMEDRIVER_VERSION: "103.0.5060.53"
       GECKODRIVER_VERSION: "0.31.0"
       LATEST: tomashgombosh/chrome-firefox:latest
       GRID: tomashgombosh/chrome-firefox:grid
