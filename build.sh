@@ -4,6 +4,6 @@ FOLDER=$1
 if [[ -z $TEST_FOLDER]];
 then
     cp -R ./scripts ./$FOLDER/
-else 
+else
     cp -R ./scripts ./$TEST_FOLDER/
-fi    
+fi
