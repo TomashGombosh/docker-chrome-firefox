@@ -1,4 +1,4 @@
-FROM chrome-firefox:latest
+FROM chrome-firefox:local
 
 ARG JAVA_VERSION
 ARG CHROMEDRIVER_VERSION
