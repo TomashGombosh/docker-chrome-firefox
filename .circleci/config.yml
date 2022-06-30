@@ -164,7 +164,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - unit_tests:
+      - unit_tests
       - latest:
           filters:
             branches:
