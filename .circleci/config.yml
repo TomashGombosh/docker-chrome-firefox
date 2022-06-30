@@ -25,8 +25,8 @@ jobs:
       - setup_remote_docker
       - run:
           name: Prepare environment variables
-          command: | 
-            sh ./prepare_vars.sh 
+          command: |
+            ./prepare_vars.sh 
             ./build.sh $TEST_FOLDER
       - run:
           name: Running Test
