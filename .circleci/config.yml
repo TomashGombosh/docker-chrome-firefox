@@ -27,7 +27,7 @@ jobs:
           name: Prepare environment variables
           command: |
             ./prepare_vars.sh 
-            ./build.sh $TEST_FOLDER
+            ./build.sh
       - run:
           name: Running Test
           command: sh ./tests_handler.sh
