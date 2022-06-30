@@ -25,11 +25,11 @@ jobs:
 
       - run:
           name: Prepare environment variables
-          command: ./prepare_vars.sh 
+          command: sh ./prepare_vars.sh 
 
       - run:
           name: Running Test
-          command: ./tests_handler.sh
+          command: sh ./tests_handler.sh
 
   latest:
     executor: docker-publisher
