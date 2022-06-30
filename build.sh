@@ -1,3 +1,9 @@
 #!/bin/bash
 FOLDER=$1
-cp -R ./scripts ./$FOLDER/
+
+if [[ -z "$TEST_FOLDER" ]];
+then
+    cp -R ./scripts ./$FOLDER/
+else
+    cp -R ./scripts ./$TEST_FOLDER/
+fi
