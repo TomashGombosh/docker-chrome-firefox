@@ -27,4 +27,3 @@ esac
 # prepare env vars
 echo 'export TEST_FOLDER="'${TEST_FOLDER}'"' >> $BASH_ENV
 echo 'export JAVA_TEST_VERSION="'${JAVA_TEST_VERSION}'"' >> $BASH_ENV
-echo 'export JAVA_TEST_VERSION="'${JAVA_TEST_VERSION}'"' >> $BASH_ENV
