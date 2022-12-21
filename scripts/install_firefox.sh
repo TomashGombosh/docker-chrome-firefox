@@ -4,7 +4,6 @@ export DEBIAN_FRONTEND=noninteractive
 GECKO_DRIVER_VERSION=$1
 
 apt-get update
-apt-get install -y firefox
 snap install firefox
 echo "Firefox install successfully"
 
