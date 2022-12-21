@@ -3,10 +3,16 @@ export DEBIAN_FRONTEND=noninteractive
 
 GECKO_DRIVER_VERSION=$1
 
+apt update
 apt-get update
-add-apt-repository ppa:ubuntu-mozilla-security/ppa
-apt-get update
-apt install -y firefox
+snap remove firefox
+echo '
+Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+' | sudo tee /etc/apt/preferences.d/mozilla-firefox
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+apt install firefox
 echo "Firefox install successfully"
 
 apt-get update
