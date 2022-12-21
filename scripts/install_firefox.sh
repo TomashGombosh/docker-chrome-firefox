@@ -3,9 +3,10 @@ export DEBIAN_FRONTEND=noninteractive
 
 GECKO_DRIVER_VERSION=$1
 
-apt update
-apt install snapd
-snap install firefox
+apt-get update
+add-apt-repository ppa:ubuntu-mozilla-security/ppa
+apt-get update
+apt install -y firefox
 echo "Firefox install successfully"
 
 apt-get update
