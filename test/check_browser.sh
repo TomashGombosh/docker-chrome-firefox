@@ -5,7 +5,7 @@ version=$($browser --version)
 
 if [[ -z "$version" ]];
 then 
-    echo "The chromedriver version should be $expectedValue, but was $version"
+    echo "The $browser version should be $expectedValue, but was $version"
     exit 1
 else 
     exit 0
