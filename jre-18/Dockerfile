@@ -11,4 +11,4 @@ RUN apt-get update &&\
     sh ./scripts/install_dependencies.sh &&\
     sh ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     sh ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
-    apt-get install -y openjdk-18-jre-headless=18~15ea-4 --no-install-recommends
+    apt-get install -y openjdk-18-jre-headless=18.0.2+9-2~22.04 
