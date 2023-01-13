@@ -11,4 +11,4 @@ RUN apt-get update &&\
     sh ./scripts/install_dependencies.sh &&\
     sh ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     sh ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
-    apt-get install -y openjdk-11-jre-headless=11.0.16+8-0ubuntu1~20.04 --no-install-recommends
+    apt-get install -y openjdk-11-jre-headless=1.0.17+8-1ubuntu2~20.04 --no-install-recommends
