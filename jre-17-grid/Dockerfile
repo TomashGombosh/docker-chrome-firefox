@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu
 
 ARG SELENIUM_GRID_VERSION
 ARG CHROMEDRIVER_VERSION
@@ -20,5 +20,5 @@ RUN apt-get update &&\
     sh ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     sh ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
     sh ./scripts/get_selenium_grid.sh $SELENIUM_GRID_VERSION &&\
-    apt-get install -y openjdk-17-jre-headless=17.0.5+8-2ubuntu1~20.04 --no-install-recommends
+    apt-get install -y openjdk-17-jre-headless --no-install-recommends
 CMD ["sh", "-c", "./entrypoint.sh"]
