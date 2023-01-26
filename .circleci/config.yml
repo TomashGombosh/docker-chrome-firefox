@@ -6,6 +6,7 @@ executors:
       CHROMEDRIVER_VERSION: "109.0.5414.74"
       GECKODRIVER_VERSION: "0.32.0"
       LATEST: tomashgombosh/chrome-firefox:latest
+      MAVEN-LATEST: tomashgombosh/chrome-firefox-maven:latest
       GRID: tomashgombosh/chrome-firefox:grid
       GRID_JRE_18: tomashgombosh/chrome-firefox:jre-18-grid
       JRE_11: tomashgombosh/chrome-firefox:jre-11
@@ -45,6 +46,27 @@ jobs:
           name: Build Docker image
           command: |
             cd jre-17 && docker build \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $LATEST .
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $LATEST
+  latest-maven:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Prepare build files"
+          command: |
+            ./build.sh jre-17-maven
+      - run:
+          name: Build Docker image
+          command: |
+            cd jre-17-maven && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
             -t $LATEST .
