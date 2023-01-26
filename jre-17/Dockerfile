@@ -5,6 +5,7 @@ ARG GECKODRIVER_VERSION
 WORKDIR /usr/home/ubuntu
 
 ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
+ENV MAVEN_HOME='/usr/share/maven'
 
 COPY ./scripts/ scripts/
 RUN apt-get update &&\
