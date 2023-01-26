@@ -171,6 +171,10 @@ workflows:
           filters:
             branches:
               only: develop
+      - grid:
+          filters:
+            branches:
+              only: develop              
       - jre-11:
           filters:
             branches:
@@ -179,14 +183,10 @@ workflows:
           filters:
             branches:
               only: develop
-      - jre-17-grid:
+      - grid-jre-17:
           filters:
             branches:
               only: develop                      
-      - grid:
-          filters:
-            branches:
-              only: develop
       - node:
           filters:
             branches:
