@@ -16,4 +16,5 @@ RUN apt-get update &&\
     sh ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     sh ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
     apt-get install -y openjdk-11-jre-headless --no-install-recommends &&\
-    sh ./scripts/install_maven.sh
+    sh ./scripts/install_maven.sh $MAVEN_VERSION &&\
+    rm -r scripts

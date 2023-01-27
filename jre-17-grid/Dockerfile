@@ -20,5 +20,6 @@ RUN apt-get update &&\
     sh ./scripts/install_chrome.sh $CHROMEDRIVER_VERSION &&\
     sh ./scripts/install_firefox.sh $GECKODRIVER_VERSION &&\
     sh ./scripts/get_selenium_grid.sh $SELENIUM_GRID_VERSION &&\
-    apt-get install -y openjdk-17-jre-headless --no-install-recommends
+    apt-get install -y openjdk-17-jre-headless --no-install-recommends &&\
+    rm -r scripts
 CMD ["sh", "-c", "./entrypoint.sh"]

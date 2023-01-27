@@ -5,6 +5,7 @@ executors:
       GRID_VERSION: "4.8.0"
       CHROMEDRIVER_VERSION: "109.0.5414.74"
       GECKODRIVER_VERSION: "0.32.0"
+      MAVEN_VERSION: "3.8.7"
       LATEST: tomashgombosh/chrome-firefox:latest
       GRID: tomashgombosh/chrome-firefox:grid
       GRID_JRE_17: tomashgombosh/chrome-firefox:jre-17-grid
@@ -47,6 +48,7 @@ jobs:
             cd jre-18 && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            --build-arg MAVEN_VERSION=$MAVEN_VERSION \
             -t $LATEST .
       - run:
           name: Publish Docker image
@@ -69,6 +71,7 @@ jobs:
             cd jre-11 && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            --build-arg MAVEN_VERSION=$MAVEN_VERSION \
             -t $JRE_11 .
       - run:
           name: Publish Docker image
@@ -90,6 +93,7 @@ jobs:
             cd jre-17 && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            --build-arg MAVEN_VERSION=$MAVEN_VERSION \
             -t $JRE_17 .
       - run:
           name: Publish Docker image
