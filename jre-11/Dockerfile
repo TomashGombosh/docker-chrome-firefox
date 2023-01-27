@@ -2,11 +2,13 @@ FROM ubuntu:jammy
 
 ARG CHROMEDRIVER_VERSION
 ARG GECKODRIVER_VERSION
+ARG MAVEN_VERSION
+
 WORKDIR /usr/home/ubuntu
 
 ENV JAVA_HOME='/usr/lib/jvm/java-11-openjdk-amd64'
 ENV MAVEN_HOME='/usr/share/maven'
-ENV MAVEN_VERSION='3.8.7'
+ENV M2_HOME='/usr/share/maven'
 
 COPY ./scripts/ scripts/
 RUN apt-get update &&\
