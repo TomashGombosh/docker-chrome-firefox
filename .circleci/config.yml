@@ -2,15 +2,15 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      GRID_VERSION: "4.5.0"
+      GRID_VERSION: "4.8.0"
       CHROMEDRIVER_VERSION: "109.0.5414.74"
       GECKODRIVER_VERSION: "0.32.0"
+      MAVEN_VERSION: "3.8.7"
       LATEST: tomashgombosh/chrome-firefox:latest
-      MAVEN-LATEST: tomashgombosh/chrome-firefox-maven:latest
       GRID: tomashgombosh/chrome-firefox:grid
-      GRID_JRE_18: tomashgombosh/chrome-firefox:jre-18-grid
+      GRID_JRE_17: tomashgombosh/chrome-firefox:jre-17-grid
       JRE_11: tomashgombosh/chrome-firefox:jre-11
-      JRE_18: tomashgombosh/chrome-firefox:jre-18
+      JRE_17: tomashgombosh/chrome-firefox:jre-17
       NODE_16: tomashgombosh/chrome-firefox:node-16
     docker:
       - image: circleci/buildpack-deps:stretch
@@ -18,7 +18,7 @@ executors:
 jobs:
   unit_tests:
     executor: docker-publisher
-    parallelism: 3
+    parallelism: 5
     resource_class: large
 
     steps:
@@ -41,34 +41,14 @@ jobs:
       - run:
           name: "Prepare build files"
           command: |
-            ./build.sh jre-17
+            ./build.sh jre-18
       - run:
           name: Build Docker image
           command: |
-            cd jre-17 && docker build \
+            cd jre-18 && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
-            -t $LATEST .
-      - run:
-          name: Publish Docker image
-          command: |
-            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $LATEST
-  latest-maven:
-    executor: docker-publisher
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: "Prepare build files"
-          command: |
-            ./build.sh jre-17-maven
-      - run:
-          name: Build Docker image
-          command: |
-            cd jre-17-maven && docker build \
-            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
-            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            --build-arg MAVEN_VERSION=$MAVEN_VERSION \
             -t $LATEST .
       - run:
           name: Publish Docker image
@@ -91,13 +71,14 @@ jobs:
             cd jre-11 && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            --build-arg MAVEN_VERSION=$MAVEN_VERSION \
             -t $JRE_11 .
       - run:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $JRE_11
-  jre-18:
+  jre-17:
     executor: docker-publisher
     steps:
       - checkout
@@ -105,42 +86,21 @@ jobs:
       - run:
           name: "Prepare build files"
           command: |
-            ./build.sh jre-18
+            ./build.sh jre-17
       - run:
           name: Build Docker image
           command: |
-            cd jre-18 && docker build \
+            cd jre-17 && docker build \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
-            -t $JRE_18 .
+            --build-arg MAVEN_VERSION=$MAVEN_VERSION \
+            -t $JRE_17 .
       - run:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $JRE_18
+            docker push $JRE_17
   grid:
-    executor: docker-publisher
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: "Prepare build files"
-          command: |
-            ./build.sh jre-17-grid
-      - run:
-          name: Build Docker image
-          command: |
-            cd jre-17-grid && docker build \
-            --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION \
-            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
-            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
-            -t $GRID .
-      - run:
-          name: Publish Docker image
-          command: |
-            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $GRID
-  grid-jre-18:
     executor: docker-publisher
     steps:
       - checkout
@@ -156,12 +116,34 @@ jobs:
             --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION \
             --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
             --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
-            -t $GRID_JRE_18 .
+            -t $GRID .
       - run:
           name: Publish Docker image
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $GRID_JRE_18
+            docker push $GRID
+  grid-jre-17:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Prepare build files"
+          command: |
+            ./build.sh jre-17-grid
+      - run:
+          name: Build Docker image
+          command: |
+            cd jre-17-grid && docker build \
+            --build-arg SELENIUM_GRID_VERSION=$GRID_VERSION \
+            --build-arg CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION \
+            --build-arg GECKODRIVER_VERSION=$GECKODRIVER_VERSION \
+            -t $GRID_JRE_17 .
+      - run:
+          name: Publish Docker image
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $GRID_JRE_17
   node:
     executor: docker-publisher
     steps:
@@ -193,14 +175,22 @@ workflows:
           filters:
             branches:
               only: develop
+      - grid:
+          filters:
+            branches:
+              only: develop              
       - jre-11:
           filters:
             branches:
               only: develop
-      - grid:
+      - jre-17:
           filters:
             branches:
               only: develop
+      - grid-jre-17:
+          filters:
+            branches:
+              only: develop                      
       - node:
           filters:
             branches:
