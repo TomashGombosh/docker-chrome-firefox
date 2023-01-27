@@ -56,7 +56,7 @@ Where:
 
 It can be used for the `.gitlab-ci.yml` to run a test on the GitLab shared runner.
 
-**NOTE**: No include maven in the container use a [maven wrapper](https://maven.apache.org/wrapper/)
+**NOTE**: Maven included in the latest, jre-17, jre-11 images
 
 ```yml
 image: tomashgombosh/chrome-firefox:lates
