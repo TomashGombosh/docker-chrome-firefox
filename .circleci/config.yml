@@ -5,7 +5,7 @@ executors:
       GRID_VERSION: "4.9.0"
       CHROMEDRIVER_VERSION: "112.0.5615.49"
       GECKODRIVER_VERSION: "0.33.0"
-      MAVEN_VERSION: "3.8.7"
+      MAVEN_VERSION: "3.9.1"
       LATEST: tomashgombosh/chrome-firefox:latest
       GRID: tomashgombosh/chrome-firefox:grid
       GRID_JRE_17: tomashgombosh/chrome-firefox:jre-17-grid
