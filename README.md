@@ -8,10 +8,10 @@ Also, images can not scale the selenium grid using AWS Fargate
 
 Includes:
 
-- **Unbutu** 22.04 Jummy(jre-18)
+- **Unbutu** 22.10 Kinetic
 - **JRE** 11/17/18.
 - **Node** 16
-- **Selenium Grid** 4.8.0 (latest)
+- **Selenium Grid** 4.9.0 (latest)
 
 The following Docker tags are available:
 
