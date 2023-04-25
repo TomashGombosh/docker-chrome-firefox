@@ -3,7 +3,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 GECKO_DRIVER_VERSION=$1
 
-apt-get install -y software-properties-common
+apt-get install -y software-properties-common libgtk-3-0 libdbus-glib-1-2 xvfb
 apt-get update
 add-apt-repository ppa:mozillateam/ppa
 echo '
