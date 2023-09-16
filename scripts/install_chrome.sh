@@ -7,7 +7,7 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt-get install -y ./google-chrome-stable_current_amd64.deb
 echo "Chrome install successfully"
 
-wget https://edgedl.me.gvt1.com/edgedl/chrome/${CHROME_DRIVER_VERSION}/linux64/chrome-linux64.zip
+wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROME_DRIVER_VERSION}/linux64/chromedriver-linux64.zip
 unzip chromedriver_linux64.zip
 mv chromedriver /usr/bin/
 chown root:root /usr/bin/chromedriver
